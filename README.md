@@ -1,0 +1,2 @@
+# finanxe
+Simple finance manager
