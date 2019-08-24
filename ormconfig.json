@@ -8,7 +8,7 @@
    "synchronize": true,
    "logging": ["query", "error"],
    "entities": [
-      "src/domain/*.entity.ts"
+      "src/domain/entity/*.entity.ts"
    ],
    "migrations": [
       "src/migration/*.ts"
