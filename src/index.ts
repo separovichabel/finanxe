@@ -1,3 +1,9 @@
+import { connection } from './domain/index'
 import { application as app } from './infrastructure/index';
 
-app.listen(8080, () => console.log('application is listening on port 8080'))
+const startUp = async () => {
+    await (await connection).connect()
+    app.listen(8080, () => console.log('application is listening on port 8080'))
+}
+
+startUp()
