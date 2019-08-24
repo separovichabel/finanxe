@@ -6,7 +6,7 @@
    "password": "123",
    "database": "finanxe",
    "synchronize": true,
-   "logging": false,
+   "logging": ["query", "error"],
    "entities": [
       "src/domain/*.entity.ts"
    ],

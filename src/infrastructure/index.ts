@@ -3,22 +3,36 @@ import { reqLogger } from './middleware/logger';
 import { getRepository } from 'typeorm';
 import { User } from '../domain/user.entity';
 import { userValidator } from './middleware/validators';
-import bodyParser = require('body-parser');
+import * as bodyParser from 'body-parser';
 
 const router = express.Router()
 
-router.use(reqLogger, bodyParser.json(), bodyParser.urlencoded({ extended: true }))
+router.use(
+    bodyParser.json(),
+    bodyParser.urlencoded({ extended: true }),
+    reqLogger,
+)
 
-router.get('/', (req, res, next) => {
+router.get('/', (req, res) => {
     res.send('Ta Tranquilo!!!')
 })
 
-router.get('/user', (req, res, next) => {
-    res.send(getRepository(User).find())
+router.delete('/user/:id', async (req, res) => {
+    const userRepo = getRepository(User);
+    const user = await userRepo.findOne({id: Number(req.params.id)})
+    res.json(await userRepo.remove(user))
 })
 
-router.post('/user', userValidator, (req, res, next) => {
-    res.send(getRepository(User).save(req.body))
+router.get('/user', async (req, res) => {
+    res.send(await getRepository(User).find({take: 10}))
+})
+
+router.get('/user/:id', async (req, res) => {
+    res.send(await getRepository(User).findOne(req.params.id))
+})
+
+router.post('/user', userValidator, async (req, res) => {
+    res.send(await getRepository(User).save(req.body))
 })
 
 export const application = express()
