@@ -4,7 +4,7 @@ import { Transaction } from './entity/transaction.entity';
 import { User } from './entity/user.entity';
 import { Wallet } from './entity/wallet.entity';
 
-const services = [];
+const services = [TypeOrmModule];
 
 @Module({
     imports: [

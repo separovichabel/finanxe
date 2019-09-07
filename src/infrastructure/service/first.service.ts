@@ -1,18 +1,24 @@
 import { Injectable } from '@nestjs/common';
-import { User, UserType } from '../../domain/model/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
+import { User } from '../../domain/entity/user.entity';
 import { Repository } from 'typeorm';
-import { AppLogger } from '../../module/logger/app.logger';
 
 @Injectable()
-export class BrokerService {
+export class UserService {
   constructor(
     @InjectRepository(User)
-    readonly userRepository: Repository<User>,
-    readonly logger: AppLogger,
+    private readonly userRep: Repository<User>,
   ) {}
 
-  async getBrokerById(brokerId: number): Promise<User> {
-      return await this.userRepository.findOne({id: brokerId, type: UserType.CORRETOR}); // TODO: VALIDAR REGRAS DE CORRETOR
+  getMany(): Promise<User[]> {
+    return this.userRep.find()
+  }
+
+  getById(userId: number): Promise<User> {
+      return this.userRep.findOne(userId); // TODO: VALIDAR REGRAS DE CORRETOR
+  }
+
+  create(user: User): Promise<User> {
+    return this.userRep.save(user);
   }
 }

@@ -24,11 +24,12 @@
    },
    "devDependencies": {
       "@types/node": "^8.0.29",
-      "ts-node": "3.3.0",
+      "ts-node": "^8.3.0",
       "typescript": "^3.5.3"
    },
    "scripts": {
-      "start": "ts-node -r dotenv/config src/index.ts",
+      "pre": "./postgres.sh",
+      "start": "nodemon",
       "typeorm": "ts-node ./node_modules/typeorm/cli.js"
    }
 }

@@ -1,8 +1,11 @@
 import { Module } from '@nestjs/common';
+import { UserService } from './service/first.service';
+import { DomainModule } from '../domain/domain.module';
 
-const services = [];
+const services = [UserService];
 
 @Module({
+    imports: [DomainModule],
     providers: services,
     exports: services,
 })
