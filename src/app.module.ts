@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './application/controllers/app.controller';
+import { AppController } from './application/controllers/user.controller';
 import { InfrastructureModule } from './infrastructure/infrastructure.module';
 import { AppLoggerModule } from './appLogger.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { IdToEntity } from './application/pipe/IdToEntity.pipe';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       logger: 'advanced-console',
   }),
     InfrastructureModule,
+    IdToEntity,
   ],
   controllers: [AppController],
 })

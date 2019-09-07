@@ -14,11 +14,15 @@ export class UserService {
     return this.userRep.find()
   }
 
-  getById(userId: number): Promise<User> {
-      return this.userRep.findOne(userId); // TODO: VALIDAR REGRAS DE CORRETOR
+  getById(id: number): Promise<User> {
+      return this.userRep.findOne(id); // TODO: VALIDAR REGRAS DE CORRETOR
   }
 
-  create(user: User): Promise<User> {
+  save(user: User): Promise<User> {
     return this.userRep.save(user);
+  }
+
+  async delete(user: User): Promise<User> {
+    return this.userRep.remove(user);
   }
 }
