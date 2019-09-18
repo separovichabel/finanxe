@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './application/controllers/user.controller';
+import { UserController } from './application/controllers/user.controller';
 import { InfrastructureModule } from './infrastructure/infrastructure.module';
 import { AppLoggerModule } from './appLogger.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { IdToEntity } from './application/pipe/IdToEntity.pipe';
+import { WalletController } from './application/controllers/wallet.controller';
 
 @Module({
   imports: [
@@ -19,10 +20,13 @@ import { IdToEntity } from './application/pipe/IdToEntity.pipe';
       synchronize: false,
       logging: !!parseInt(process.env.DEBUG || '0', 10),
       logger: 'advanced-console',
-  }),
-    InfrastructureModule,
+    }),
     IdToEntity,
+    InfrastructureModule,
   ],
-  controllers: [AppController],
+  controllers: [
+    UserController,
+    WalletController,
+  ],
 })
 export class AppModule {}

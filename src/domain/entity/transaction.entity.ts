@@ -10,4 +10,4 @@ export class Transaction {
     
     @Column()
     dateTime: Date; 
-};
+}

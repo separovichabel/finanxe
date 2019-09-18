@@ -1,13 +1,14 @@
-import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from '../../domain/entity/user.entity';
+import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
+import { User } from '../../domain/entity/user.entity';
 
 @Injectable()
 export class UserService {
+  
   constructor(
     @InjectRepository(User)
-    private readonly userRep: Repository<User>,
+    readonly userRep: Repository<User>,
   ) {}
 
   getMany(): Promise<User[]> {
@@ -15,7 +16,7 @@ export class UserService {
   }
 
   getById(id: number): Promise<User> {
-      return this.userRep.findOne(id); // TODO: VALIDAR REGRAS DE CORRETOR
+    return this.userRep.findOne(id);
   }
 
   save(user: User): Promise<User> {

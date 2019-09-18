@@ -8,6 +8,7 @@
     "target": "es2017",
     "sourceMap": true,
     "outDir": "./dist",
+    "skipLibCheck": true,
     // "baseUrl": "./src",
     "incremental": true
   },

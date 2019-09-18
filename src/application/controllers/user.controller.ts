@@ -5,7 +5,7 @@ import { User } from '../../domain/entity/user.entity';
 import { IdToEntity } from '../pipe/IdToEntity.pipe';
 
 @Controller('users')
-export class AppController {
+export class UserController {
 
   constructor(
     readonly userService: UserService,

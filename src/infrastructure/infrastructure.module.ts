@@ -1,12 +1,16 @@
 import { Module } from '@nestjs/common';
-import { UserService } from './service/user.service';
 import { DomainModule } from '../domain/domain.module';
+import { WalletService } from './service/wallet.service';
+import { UserService } from './service/user.service';
 
-const services = [UserService];
+const services = [
+    UserService,
+    WalletService,
+];
 
 @Module({
     imports: [DomainModule],
     providers: services,
-    exports: services,
+    exports: services, 
 })
 export class InfrastructureModule {}
