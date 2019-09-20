@@ -3,7 +3,7 @@ import { UserController } from './application/controllers/user.controller';
 import { InfrastructureModule } from './infrastructure/infrastructure.module';
 import { AppLoggerModule } from './appLogger.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { IdToEntity } from './application/pipe/IdToEntity.pipe';
+import { IdToEntity } from './application/pipe/idToEntity.pipe';
 import { WalletController } from './application/controllers/wallet.controller';
 
 @Module({

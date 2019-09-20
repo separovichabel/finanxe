@@ -23,7 +23,7 @@ export class UserService {
     return this.userRep.save(user);
   }
 
-  async delete(user: User): Promise<User> {
+  delete(user: User): Promise<User> {
     return this.userRep.remove(user);
   }
 }

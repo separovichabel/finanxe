@@ -1,8 +1,8 @@
-import { Controller, Get, Param, Body, Post, Delete, UsePipes, HttpException } from '@nestjs/common';
+import { Controller, Get, Param, Body, Post, Delete, UsePipes } from '@nestjs/common';
 import { AppLogger } from '../../app.logger';
 import { UserService } from '../../infrastructure/service/user.service';
 import { User } from '../../domain/entity/user.entity';
-import { IdToEntity } from '../pipe/IdToEntity.pipe';
+import { IdToEntity } from '../pipe/idToEntity.pipe';
 
 @Controller('users')
 export class UserController {

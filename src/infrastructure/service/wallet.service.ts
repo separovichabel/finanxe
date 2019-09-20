@@ -12,16 +12,21 @@ export class WalletService {
         readonly walletRepo: Repository<Wallet>,
     ) {}
 
-    save(wallet: Wallet, owner: User): Promise<Wallet> {
+    insert(wallet: Wallet, owner: User): Promise<Wallet> {
         wallet.owner = owner;
         return this.walletRepo.save(wallet)
+    }
+
+    async update(id: number, plainWallet: Wallet): Promise<Wallet> {
+        const wallet = await this.walletRepo.findOne(id);
+        return this.walletRepo.save(this.walletRepo.merge(wallet, plainWallet))
     }
 
     getMany(owner: User) {
         return this.walletRepo.find({owner});
     }
 
-    getById(owner: User, name: string): Promise<Wallet> {
-        return this.walletRepo.findOne({name, owner});
+    getByIdOfUser(id: number, owner: User): Promise<Wallet> {
+        return this.walletRepo.findOne({id, owner});
     }
 }

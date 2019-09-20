@@ -1,9 +1,11 @@
-import { Controller, Get, Param, Body, Post, Delete, UsePipes, HttpException } from '@nestjs/common';
+import { Controller, Get, Param, Body, Post, Delete, UsePipes, Put } from '@nestjs/common';
 import { AppLogger } from '../../app.logger';
 import { User } from '../../domain/entity/user.entity';
-import { IdToEntity } from '../pipe/IdToEntity.pipe';
+import { IdToEntity } from '../pipe/idToEntity.pipe';
 import { WalletService } from '../../infrastructure/service/wallet.service';
 import { Wallet } from '../../domain/entity/wallet.entity';
+import { JoiValidationPipe as JoiPipe } from '../pipe/joiValidation.pipe';
+import { insertWalletValidator } from '../validators/wallet.validation';
 
 @Controller('users/:userId/wallets')
 export class WalletController {
@@ -13,22 +15,31 @@ export class WalletController {
     readonly logger: AppLogger,
   ) {}
 
-  // @Get()
-  // getMany(@Param() id: number): Promise<Wallet[]> {
-  //   return this.walletService.getMany(id);
-  // }
+  @Get()
+  getMany(@Param('userId') user: User): Promise<Wallet[]> {
+    return this.walletService.getMany(user);
+  }
 
-  // @Get(':id')
-  // @UsePipes(IdToEntity)
-  // getById(@Param('id') id: number): Promise<Wallet[]> {
-  //   return this.walletService.getById(id);
-  // }
+  @Get(':walletId')
+  getById(@Param('walletId') id: number, @Param('userId', IdToEntity) user: User): Promise<Wallet> {
+    return this.walletService.getByIdOfUser(id, user);
+  }
 
   @Post()
-  @UsePipes(IdToEntity)
-  create(@Body() wallet: Wallet, @Param('userId') user: User): Promise<Wallet> {
-    // return this.walletService.save(wallet, user);
-    return
+  create(
+    @Body(new JoiPipe(insertWalletValidator)) wallet: Wallet,
+    @Param('userId', IdToEntity) user: User,
+  ): Promise<Wallet> {
+    return this.walletService.insert(wallet, user);
+  }
+
+  @Put(':walletId')
+  fullUpdate(
+    @Body(new JoiPipe(insertWalletValidator)) wallet: Wallet,
+    @Param('userId', IdToEntity) user: User,
+    @Param('walletId') walletId: number,
+  ): Promise<Wallet> {
+    return this.walletService.update(walletId, wallet);
   }
 
   // @Delete(':id')
