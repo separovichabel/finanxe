@@ -1,13 +1,18 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from "typeorm";
+import { Wallet } from "./wallet.entity";
 
 @Entity()
 export class Transaction {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({type: 'money'})
     value: number;
+
+    @OneToOne(type => Wallet)
+    @JoinColumn()
+    from: Wallet;
     
-    @Column()
+    @Column({default: new Date()})
     dateTime: Date; 
 }
