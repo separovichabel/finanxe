@@ -14,8 +14,12 @@ export class TransactionService {
     ) {}
 
     insert(transaction: Transaction): Promise<Transaction> {
-        // wallet.owner = owner;
+        console.log(transaction)
         return this.transactiontRepo.save(transaction)
+    }
+
+    compose(value: number, from: Wallet): Transaction {
+        return this.transactiontRepo.create({value, from})
     }
 
     async update(id: number, plainWallet: Transaction): Promise<Transaction> {

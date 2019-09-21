@@ -17,7 +17,7 @@ export class AppLogger extends Logger {
             ),
             transports: [
                 new DailyRotateFile({
-                    filename: `${process.env.STORE_PATH || '.'}/fac-api.log`,
+                    filename: `${process.env.STORE_PATH || '.'}/finanxe.log`,
                     zippedArchive: true,
                     maxFiles: 3,
                 }),

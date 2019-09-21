@@ -1,10 +1,10 @@
-import { Controller, Get, Param, Body, Post, Delete, UsePipes, Put } from '@nestjs/common';
+import { Controller, Get, Param, Body, Post, Put } from '@nestjs/common';
 import { AppLogger } from '../../app.logger';
 import { User } from '../../domain/entity/user.entity';
 import { IdToEntity } from '../pipe/idToEntity.pipe';
 import { WalletService } from '../../infrastructure/service/wallet.service';
 import { Wallet } from '../../domain/entity/wallet.entity';
-import { JoiValidationPipe as JoiPipe } from '../pipe/joiValidation.pipe';
+import { JoiPipe } from '../pipe/joiValidation.pipe';
 import { insertWalletValidator } from '../validators/wallet.validation';
 
 @Controller('users/:userId/wallets')

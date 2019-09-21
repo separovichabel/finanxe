@@ -9,7 +9,6 @@ const services = [TypeOrmModule];
 @Module({
     imports: [
         TypeOrmModule.forFeature([
-            // Entities
             Transaction,
             User,
             Wallet,

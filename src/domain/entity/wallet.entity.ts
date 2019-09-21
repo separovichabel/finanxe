@@ -9,7 +9,7 @@ export class Wallet {
     @Column()
     name: string;
 
-    @Column()
+    @Column({type: 'float'})
     value: number;
 
     @ManyToOne(type => User, user => user.wallets)

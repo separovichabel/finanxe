@@ -14,9 +14,8 @@ export class IsUsersWalletInterceptor implements NestInterceptor {
 
   async intercept(context: ExecutionContext, next: CallHandler): Promise<Observable<any>> {
     const req: Request = context.switchToHttp().getRequest();
-    console.log(req.params)
-    const userId = parseInt(req.param('userId'), 10);
-    const walletId = parseInt(req.param('walletId'), 10);
+    const userId = parseInt(req.params.userId, 10);
+    const walletId = parseInt(req.params.walletId, 10);
 
     if (!userId || !walletId)
         throw new BadRequestException('userId and walletId are necessary')
@@ -25,6 +24,6 @@ export class IsUsersWalletInterceptor implements NestInterceptor {
     
     if (!isUsersWallet)
       throw new BadRequestException(`User does not posses this Wallet ${walletId}`)
-    return;
+    return next.handle();
   }
 }

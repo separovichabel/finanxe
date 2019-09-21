@@ -2,7 +2,7 @@ import * as Joi from '@hapi/joi';
 import { PipeTransform, Injectable, ArgumentMetadata, BadRequestException } from '@nestjs/common';
 
 @Injectable()
-export class JoiValidationPipe implements PipeTransform {
+export class JoiPipe implements PipeTransform {
   constructor(private readonly schema: Joi.AnySchema) {}
 
   transform(value: any, metadata: ArgumentMetadata) {

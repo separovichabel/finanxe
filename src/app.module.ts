@@ -6,7 +6,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { IdToEntity } from './application/pipe/idToEntity.pipe';
 import { WalletController } from './application/controllers/wallet.controller';
 import { TransactionController } from './application/controllers/transaction.controller';
-import { IsUsersWalletGuard } from './application/guard/isUsersWallet.guard';
 
 @Module({
   imports: [
@@ -25,7 +24,6 @@ import { IsUsersWalletGuard } from './application/guard/isUsersWallet.guard';
     }),
     IdToEntity,
     InfrastructureModule,
-    // IsUsersWalletGuard,
   ],
   controllers: [
     UserController,

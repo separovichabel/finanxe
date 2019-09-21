@@ -6,36 +6,35 @@ import { Wallet } from '../../domain/entity/wallet.entity';
 import { TransactionService } from '../../infrastructure/service/transaction.service';
 import { Transaction } from '../../domain/entity/transaction.entity';
 import { IsUsersWalletInterceptor } from '../interceptor/isUsersWallet.interceptor';
+import { JoiPipe } from '../pipe/joiValidation.pipe';
+import { insertTransactionValidator } from '../validators/transaction.validation';
 
 @Controller('users/:userId/wallets/:walletId/transactions')
 export class TransactionController {
 
   constructor(
-    readonly TransactionService: TransactionService,
+    readonly transactionService: TransactionService,
     readonly logger: AppLogger,
   ) {}
 
   @Get()
   @UseInterceptors(IsUsersWalletInterceptor)
-  getMany(
+  async getMany(
     @Param('userId', IdToEntity) user: User,
     @Param('walletId', IdToEntity) wallet: Wallet,
   ): Promise<Transaction[]> {
-    return this.TransactionService.getMany(user, wallet);
+    return await this.transactionService.getMany(user, wallet);
   }
 
-  // @Get(':walletId')
-  // getById(@Param('walletId') id: number, @Param('userId', IdToEntity) user: User): Promise<Wallet> {
-  //   return this.TransactionService.getByIdOfUser(id, user);
-  // }
-
-  // @Post()
-  // create(
-  //   @Body(new JoiPipe(insertWalletValidator)) wallet: Wallet,
-  //   @Param('userId', IdToEntity) user: User,
-  // ): Promise<Wallet> {
-  //   return this.TransactionService.insert(wallet, user);
-  // }
+  @Post()
+  @UseInterceptors(IsUsersWalletInterceptor)
+  create(
+    @Body(new JoiPipe(insertTransactionValidator)) transaction: Transaction,
+    @Param('userId', IdToEntity) user: User,
+    @Param('walletId', IdToEntity) wallet: Wallet,
+  ): Promise<Transaction> {
+    return this.transactionService.insert(this.transactionService.compose(transaction.value, wallet));
+  }
 
   // @Put(':walletId')
   // fullUpdate(
